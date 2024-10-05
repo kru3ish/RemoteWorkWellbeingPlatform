@@ -65,16 +65,6 @@ Remote Work Well-being Platform is a web-based app designed to enhance productiv
 - **Firebase**: Authentication and backend services.
 - **LocalStorage**: Stores tasks and productivity data locally.
 
-## 📸 Screenshots
-
-![Authentication Page](https://via.placeholder.com/800x400)
-*User authentication page where users can sign up or log in.*
-
-![Pomodoro Timer](https://via.placeholder.com/800x400)
-*Pomodoro Timer to help users stay focused.*
-
-![Guided Meditation](https://via.placeholder.com/800x400)
-*Guided meditation sessions to help users relax.*
 
 ## 💡 Future Enhancements
 
