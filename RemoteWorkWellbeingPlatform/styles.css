@@ -56,3 +56,58 @@ footer {
     background-color: #333;
     color: #fff;
 }
+.timer-container {
+    text-align: center;
+    background: #ffecb3;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 400px;
+    margin: 20px auto;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+#time-left {
+    font-size: 2em;
+    margin: 10px 0;
+}
+#auth-forms {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px auto;
+    max-width: 800px;
+}
+
+#signup-form, #login-form {
+    background: #ffecb3;
+    padding: 20px;
+    border-radius: 10px;
+    width: 40%;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+#auth-forms label {
+    display: block;
+    margin-top: 10px;
+}
+
+#auth-forms input {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+#auth-forms button {
+    margin-top: 10px;
+    background-color: #008cba;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#auth-forms button:hover {
+    background-color: #005f6b;
+}
