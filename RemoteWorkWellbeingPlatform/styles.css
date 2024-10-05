@@ -84,7 +84,8 @@ footer {
     max-width: 800px;
 }
 
-#signup-form, #login-form {
+#signup-form,
+#login-form {
     background: #ffecb3;
     padding: 20px;
     border-radius: 10px;
@@ -125,7 +126,8 @@ footer {
         align-items: center;
     }
 
-    #signup-form, #login-form {
+    #signup-form,
+    #login-form {
         width: 80%;
         margin-bottom: 20px;
     }
@@ -172,6 +174,7 @@ footer {
 
 .todo-container {
     margin-top: 20px;
+    width: 60%;
 }
 
 #new-task {

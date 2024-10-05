@@ -7,7 +7,18 @@
     <title>Remote Work Well-being Platform</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Firebase SDK (App and Auth) -->
+    <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js"></script>
+
+    <!-- Firebase Configuration -->
+    <script src="firebaseConfig.js"></script>
+
+    <!-- Custom Scripts -->
+    <script src="scripts.js"></script>
 </head>
+
 
 <body>
     <header>
@@ -72,7 +83,7 @@
                 <p id="total-focus-time">0:00</p>
             </div>
         </div>
-    </section>    
+    </section>
 
     <section id="home">
         <h2>Welcome to Your Well-being Hub</h2>
@@ -106,15 +117,15 @@
         <div class="timer-container">
             <h3 id="timer-label">Focus Time</h3>
             <p id="time-left" class="display-4">25:00</p>
-            
+
             <div class="custom-timer-settings">
                 <label for="focus-duration">Focus Time (minutes):</label>
                 <input type="number" id="focus-duration" name="focus-duration" min="1" value="25">
-    
+
                 <label for="break-duration">Break Time (minutes):</label>
                 <input type="number" id="break-duration" name="break-duration" min="1" value="5">
             </div>
-    
+
             <button onclick="startTimer()">Start</button>
             <button onclick="resetTimer()">Reset</button>
         </div>
@@ -137,7 +148,7 @@
         </div>
         <audio id="meditation-audio" controls style="display: none;"></audio>
     </section>
-    
+
     <section id="todo-list">
         <h2>Daily To-Do List</h2>
         <div class="todo-container">
@@ -145,7 +156,7 @@
             <button onclick="addTask()">Add Task</button>
             <ul id="task-list"></ul>
         </div>
-    </section>    
+    </section>
 
     <section id="about">
         <h2>About Us</h2>
@@ -173,7 +184,6 @@
         <p>&copy; 2024 Remote Work Well-being Platform. All rights reserved.</p>
     </footer>
 
-    <script src="scripts.js"></script>
 </body>
 
 </html>

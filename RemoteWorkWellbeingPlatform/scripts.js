@@ -1,7 +1,20 @@
+// const app = firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+
 let timerInterval;
 let isRunning = false;
 let pomodoroCount = 0;
 let totalFocusTime = 0; // Total focus time in seconds
+
+window.signupUser = signupUser;
+window.loginUser = loginUser;
+window.logoutUser = logoutUser;
+window.getStarted = getStarted;
+window.startTimer = startTimer;
+window.resetTimer = resetTimer;
+window.addTask = addTask;
+window.playAudio = playAudio;
+
 
 document.addEventListener("DOMContentLoaded", () => {
     requestNotificationPermission();
@@ -19,32 +32,28 @@ function requestNotificationPermission() {
     }
 }
 
+// Timer functions
 function startTimer() {
     if (!isRunning) {
         isRunning = true;
 
-        // Get custom durations from the input fields
         const focusDuration = parseInt(document.getElementById('focus-duration').value) * 60;
         const breakDuration = parseInt(document.getElementById('break-duration').value) * 60;
 
-        // Set initial time remaining
         let timeRemaining = focusDuration;
         document.getElementById('timer-label').textContent = 'Focus Time';
         document.getElementById('time-left').textContent = formatTime(timeRemaining);
 
-        // Start the countdown
         timerInterval = setInterval(function () {
             if (timeRemaining > 0) {
                 timeRemaining--;
                 document.getElementById('time-left').textContent = formatTime(timeRemaining);
             } else {
-                // Switch between Focus and Break
                 if (document.getElementById('timer-label').textContent === 'Focus Time') {
                     timeRemaining = breakDuration;
                     document.getElementById('timer-label').textContent = 'Break Time';
                     sendNotification("Time's up! Take a break.");
 
-                    // Update dashboard stats for Pomodoro sessions
                     pomodoroCount++;
                     totalFocusTime += focusDuration;
                     updateDashboard();
@@ -62,7 +71,6 @@ function resetTimer() {
     clearInterval(timerInterval);
     isRunning = false;
 
-    // Reset to the custom focus duration value
     const focusDuration = parseInt(document.getElementById('focus-duration').value) * 60;
     document.getElementById('timer-label').textContent = 'Focus Time';
     document.getElementById('time-left').textContent = formatTime(focusDuration);
@@ -80,6 +88,67 @@ function formatTime(seconds) {
     return `${minutes.toString().padStart(2, '0')}:${secondsLeft.toString().padStart(2, '0')}`;
 }
 
+// Firebase Authentication
+
+// Signup User
+function signupUser() {
+    const email = document.getElementById('signup-email').value.trim();
+    const password = document.getElementById('signup-password').value.trim();
+
+    if (!email || !password) {
+        showMessage("All fields are required!", "#d9534f");
+        return;
+    }
+
+    createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            showMessage("Sign up successful! Please log in.", "#5cb85c");
+            document.getElementById('signup-form').reset();
+        })
+        .catch((error) => {
+            showMessage(`Error: ${error.message}`, "#d9534f");
+        });
+}
+
+// Login User
+function loginUser() {
+    const email = document.getElementById('login-username').value.trim();
+    const password = document.getElementById('login-password').value.trim();
+
+    if (!email || !password) {
+        showMessage("Please enter your email and password!", "#d9534f");
+        return;
+    }
+
+    signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            showMessage("Login successful! Welcome back!", "#5cb85c");
+            document.getElementById('login-form').reset();
+        })
+        .catch((error) => {
+            showMessage(`Error: ${error.message}`, "#d9534f");
+        });
+}
+
+// Logout User
+function logoutUser() {
+    signOut(auth)
+        .then(() => {
+            showMessage("Logged out successfully.", "#5cb85c");
+        })
+        .catch((error) => {
+            showMessage(`Error: ${error.message}`, "#d9534f");
+        });
+}
+
+function showMessage(message, color = '#d9534f') {
+    const feedbackElement = document.getElementById('feedback-message');
+    feedbackElement.textContent = message;
+    feedbackElement.style.color = color;
+}
+
+// Task Management Code
+
 function addTask() {
     const taskInput = document.getElementById('new-task');
     const taskText = taskInput.value.trim();
@@ -91,12 +160,10 @@ function addTask() {
 
     const taskList = document.getElementById('task-list');
 
-    // Create a new list item for the task
     const taskItem = document.createElement('li');
     const taskSpan = document.createElement('span');
     taskSpan.textContent = taskText;
 
-    // Button to mark the task as complete
     const completeButton = document.createElement('button');
     completeButton.textContent = "Complete";
     completeButton.classList.add('task-button');
@@ -107,10 +174,9 @@ function addTask() {
         } else {
             decrementTasksCompleted();
         }
-        saveTasks(); // Save updated tasks
+        saveTasks();
     };
 
-    // Button to remove the task
     const removeButton = document.createElement('button');
     removeButton.textContent = "Remove";
     removeButton.classList.add('task-button');
@@ -119,21 +185,15 @@ function addTask() {
             decrementTasksCompleted();
         }
         taskList.removeChild(taskItem);
-        saveTasks(); // Save updated tasks
+        saveTasks();
     };
 
-    // Add elements to the task item
     taskItem.appendChild(taskSpan);
     taskItem.appendChild(completeButton);
     taskItem.appendChild(removeButton);
-
-    // Add the task item to the task list
     taskList.appendChild(taskItem);
 
-    // Save the updated list of tasks
     saveTasks();
-
-    // Clear the input field
     taskInput.value = "";
 }
 
@@ -141,14 +201,12 @@ function saveTasks() {
     const taskList = document.getElementById('task-list');
     const tasks = [];
 
-    // Loop through all tasks and save the text and completion state
     taskList.querySelectorAll('li').forEach(taskItem => {
         const taskText = taskItem.querySelector('span').textContent;
         const isCompleted = taskItem.querySelector('span').classList.contains('task-complete');
         tasks.push({ text: taskText, completed: isCompleted });
     });
 
-    // Save tasks to localStorage as a string
     localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
@@ -165,18 +223,15 @@ function loadTasks() {
 function addTaskFromStorage(taskText, isCompleted) {
     const taskList = document.getElementById('task-list');
 
-    // Create a new list item for the task
     const taskItem = document.createElement('li');
     const taskSpan = document.createElement('span');
     taskSpan.textContent = taskText;
 
-    // Mark as complete if needed
     if (isCompleted) {
         taskSpan.classList.add('task-complete');
         incrementTasksCompleted();
     }
 
-    // Button to mark the task as complete
     const completeButton = document.createElement('button');
     completeButton.textContent = "Complete";
     completeButton.classList.add('task-button');
@@ -187,10 +242,9 @@ function addTaskFromStorage(taskText, isCompleted) {
         } else {
             decrementTasksCompleted();
         }
-        saveTasks(); // Save updated tasks
+        saveTasks();
     };
 
-    // Button to remove the task
     const removeButton = document.createElement('button');
     removeButton.textContent = "Remove";
     removeButton.classList.add('task-button');
@@ -199,15 +253,12 @@ function addTaskFromStorage(taskText, isCompleted) {
             decrementTasksCompleted();
         }
         taskList.removeChild(taskItem);
-        saveTasks(); // Save updated tasks
+        saveTasks();
     };
 
-    // Add elements to the task item
     taskItem.appendChild(taskSpan);
     taskItem.appendChild(completeButton);
     taskItem.appendChild(removeButton);
-
-    // Add the task item to the task list
     taskList.appendChild(taskItem);
 }
 
@@ -216,7 +267,6 @@ function updateDashboard() {
     document.getElementById('tasks-completed').textContent = countCompletedTasks();
     document.getElementById('total-focus-time').textContent = formatTime(totalFocusTime);
 
-    // Save updated dashboard stats to localStorage
     localStorage.setItem('dashboard', JSON.stringify({
         pomodoroCount,
         totalFocusTime
