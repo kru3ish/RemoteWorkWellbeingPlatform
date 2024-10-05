@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Remote Work Well-being Platform</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <header>
         <h1>Remote Work Well-being</h1>
@@ -18,6 +21,8 @@
             </ul>
         </nav>
     </header>
+    <div id="feedback-message" class="text-center fw-bold"></div>
+
     <section id="authentication">
         <div id="auth-forms">
             <div id="signup-form">
@@ -25,38 +30,39 @@
                 <form>
                     <label for="signup-username">Username:</label>
                     <input type="text" id="signup-username" name="signup-username" required>
-                    
+
                     <label for="signup-email">Email:</label>
                     <input type="email" id="signup-email" name="signup-email" required>
-                    
+
                     <label for="signup-password">Password:</label>
                     <input type="password" id="signup-password" name="signup-password" required>
-                    
+
                     <button type="button" onclick="signupUser()">Sign Up</button>
                 </form>
             </div>
-    
+
             <div id="login-form">
                 <h2>Log In</h2>
                 <form>
                     <label for="login-username">Username:</label>
                     <input type="text" id="login-username" name="login-username" required>
-                    
+
                     <label for="login-password">Password:</label>
                     <input type="password" id="login-password" name="login-password" required>
-                    
+
                     <button type="button" onclick="loginUser()">Log In</button>
                 </form>
             </div>
         </div>
     </section>
-    
+
     <section id="home">
         <h2>Welcome to Your Well-being Hub</h2>
-        <p>Managing your well-being while working remotely has never been easier. Get personalized tools to improve productivity, take breaks, and maintain a healthy balance.</p>
+        <p>Managing your well-being while working remotely has never been easier. Get personalized tools to improve
+            productivity, take breaks, and maintain a healthy balance.</p>
         <button onclick="getStarted()">Get Started</button>
     </section>
-    
+
     <section id="features">
         <h2>Features</h2>
         <div class="feature">
@@ -66,7 +72,6 @@
         <div class="feature">
             <h3>Productivity Timer</h3>
             <p>Use our built-in Pomodoro timer to stay focused and maximize efficiency.</p>
-            
         </div>
         <div class="feature">
             <h3>Virtual Co-working</h3>
@@ -77,40 +82,62 @@
             <p>Access guided meditation, relaxation techniques, and expert mental health articles.</p>
         </div>
     </section>
+
     <section id="pomodoro">
         <h2>Productivity Timer</h2>
         <div class="timer-container">
             <h3 id="timer-label">Focus Time</h3>
-            <p id="time-left">25:00</p>
+            <p id="time-left" class="display-4">25:00</p>
+            
+            <div class="custom-timer-settings">
+                <label for="focus-duration">Focus Time (minutes):</label>
+                <input type="number" id="focus-duration" name="focus-duration" min="1" value="25">
+    
+                <label for="break-duration">Break Time (minutes):</label>
+                <input type="number" id="break-duration" name="break-duration" min="1" value="5">
+            </div>
+    
             <button onclick="startTimer()">Start</button>
             <button onclick="resetTimer()">Reset</button>
         </div>
     </section>
+    
+    <section id="todo-list">
+        <h2>Daily To-Do List</h2>
+        <div class="todo-container">
+            <input type="text" id="new-task" placeholder="Enter a new task..." />
+            <button onclick="addTask()">Add Task</button>
+            <ul id="task-list"></ul>
+        </div>
+    </section>    
+
     <section id="about">
         <h2>About Us</h2>
-        <p>We are passionate about supporting remote workers in their journey to maintain a healthy work-life balance. Our tools are designed to enhance productivity while keeping mental and physical well-being in mind.</p>
+        <p>We are passionate about supporting remote workers in their journey to maintain a healthy work-life balance.
+            Our tools are designed to enhance productivity while keeping mental and physical well-being in mind.</p>
     </section>
-    
+
     <section id="contact">
         <h2>Contact Us</h2>
         <form>
             <label for="name">Name:</label>
             <input type="text" id="name" name="name" required>
-            
+
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
-            
+
             <label for="message">Message:</label>
             <textarea id="message" name="message" rows="4" required></textarea>
-            
+
             <button type="submit">Send Message</button>
         </form>
     </section>
-    
+
     <footer>
         <p>&copy; 2024 Remote Work Well-being Platform. All rights reserved.</p>
     </footer>
 
     <script src="scripts.js"></script>
 </body>
+
 </html>

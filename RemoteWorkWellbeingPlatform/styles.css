@@ -1,16 +1,17 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
     line-height: 1.6;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: #f0f2f5;
 }
 
 header {
     background-color: #333;
     color: #fff;
-    padding: 10px 0;
+    padding: 20px 0;
     text-align: center;
+    font-size: 1.5em;
 }
 
 nav ul {
@@ -26,36 +27,41 @@ nav ul li {
 nav ul li a {
     color: #fff;
     text-decoration: none;
+    font-weight: bold;
 }
 
 section {
-    padding: 20px;
+    padding: 40px;
     background: #fff;
-    margin: 20px auto;
-    max-width: 800px;
+    margin: 30px auto;
+    max-width: 900px;
     border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
 }
 
 button {
-    background-color: #008cba;
+    background-color: #007bff;
     color: #fff;
     border: none;
     padding: 10px 20px;
     cursor: pointer;
     border-radius: 5px;
+    transition: background-color 0.3s ease;
 }
 
 button:hover {
-    background-color: #005f6b;
+    background-color: #0056b3;
 }
 
 footer {
     text-align: center;
-    padding: 10px;
+    padding: 20px;
     background-color: #333;
     color: #fff;
+    margin-top: 40px;
+    font-size: 0.9em;
 }
+
 .timer-container {
     text-align: center;
     background: #ffecb3;
@@ -70,6 +76,7 @@ footer {
     font-size: 2em;
     margin: 10px 0;
 }
+
 #auth-forms {
     display: flex;
     justify-content: space-around;
@@ -110,4 +117,102 @@ footer {
 
 #auth-forms button:hover {
     background-color: #005f6b;
+}
+
+@media (max-width: 768px) {
+    #auth-forms {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #signup-form, #login-form {
+        width: 80%;
+        margin-bottom: 20px;
+    }
+
+    nav ul li {
+        display: block;
+        margin: 10px 0;
+    }
+
+    header {
+        font-size: 1.2em;
+    }
+}
+
+.custom-timer-settings {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.custom-timer-settings label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: bold;
+}
+
+.custom-timer-settings input {
+    width: 50px;
+    padding: 5px;
+    margin: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+#todo-list {
+    padding: 40px;
+    background: #fff;
+    margin: 30px auto;
+    max-width: 600px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.todo-container {
+    margin-top: 20px;
+}
+
+#new-task {
+    width: 60%;
+    padding: 10px;
+    margin-right: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+#task-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+#task-list li {
+    background: #ffecb3;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.task-complete {
+    text-decoration: line-through;
+    color: gray;
+}
+
+.task-button {
+    background-color: #d9534f;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.task-button:hover {
+    background-color: #c9302c;
 }
